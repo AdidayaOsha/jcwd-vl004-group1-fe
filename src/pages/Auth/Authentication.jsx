@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios"
+import Header from "../../components/HeaderUser"
 
 const Authentication = () => {
     const { token } = useParams();
+    const navigate = useNavigate();
     const [message, setMessage] = useState("You are not verified yet!")
 
     const sendVerification = () => {
@@ -17,6 +19,7 @@ const Authentication = () => {
                     setMessage(res.data.message)
                 }
                 console.log(res)
+                // navigate('/')
             })
             .catch((err) => {
                 console.log(err)
@@ -27,7 +30,10 @@ const Authentication = () => {
         sendVerification()
     }, [])
     return (
-        <div>Authentication: {message}</div>
+        <>
+            <Header />
+            <div className='text-gray-600'>Authentication: {message}</div>
+        </>
     )
 }
 
